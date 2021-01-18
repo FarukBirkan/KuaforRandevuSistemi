@@ -1,0 +1,382 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DbRandevuModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TblKasa">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tutar" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Tarih" Type="date" />
+          <Property Name="Musteri" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="TblKasaCikis">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tutar" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Tarih" Type="date" />
+          <Property Name="Aciklama" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="TblKullanici">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullaniciAd" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sifre" Type="nchar" MaxLength="10" />
+          <Property Name="Yetki" Type="bit" />
+        </EntityType>
+        <EntityType Name="TblLisans">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LisansCode" Type="nvarchar(max)" />
+          <Property Name="HDD" Type="nvarchar(max)" />
+          <Property Name="PC" Type="nvarchar(max)" />
+          <Property Name="MacAdres" Type="nvarchar(max)" />
+          <Property Name="IpAdres" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="TblMusteri">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdSoyad" Type="nvarchar" MaxLength="150" />
+          <Property Name="Telefon" Type="nvarchar" MaxLength="50" />
+          <Property Name="TcKimlikNo" Type="nvarchar" MaxLength="11" />
+        </EntityType>
+        <EntityType Name="TblNotlar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Baslik" Type="nvarchar" MaxLength="150" />
+          <Property Name="Icerik" Type="nvarchar" MaxLength="200" />
+          <Property Name="Tarih" Type="date" />
+          <Property Name="Durum" Type="bit" />
+        </EntityType>
+        <EntityType Name="TblRandevu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MusteriId" Type="int" />
+          <Property Name="RandevuTarih" Type="date" />
+          <Property Name="RandevuSaat" Type="char" MaxLength="5" />
+          <Property Name="TrasTip" Type="int" />
+          <Property Name="RandevuDurum" Type="bit" />
+        </EntityType>
+        <EntityType Name="TblTras">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TrasTip" Type="nvarchar" MaxLength="150" />
+          <Property Name="Ucret" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <Association Name="FK_TblRandevu_TblTras">
+          <End Role="TblTras" Type="Self.TblTras" Multiplicity="0..1" />
+          <End Role="TblRandevu" Type="Self.TblRandevu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblTras">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TblRandevu">
+              <PropertyRef Name="TrasTip" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DbRandevuModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblKasa" EntityType="Self.TblKasa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblKasaCikis" EntityType="Self.TblKasaCikis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblKullanici" EntityType="Self.TblKullanici" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblLisans" EntityType="Self.TblLisans" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblMusteri" EntityType="Self.TblMusteri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblNotlar" EntityType="Self.TblNotlar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblRandevu" EntityType="Self.TblRandevu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblTras" EntityType="Self.TblTras" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TblRandevu_TblTras" Association="Self.FK_TblRandevu_TblTras">
+            <End Role="TblTras" EntitySet="TblTras" />
+            <End Role="TblRandevu" EntitySet="TblRandevu" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DbRandevuModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TblKullanici">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullaniciAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sifre" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Yetki" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="TblMusteri">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdSoyad" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TblRandevu" Relationship="Self.FK_TblRandevu_TblMusteri" FromRole="TblMusteri" ToRole="TblRandevu" />
+          <Property Name="TcKimlikNo" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TblRandevu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MusteriId" Type="Int32" />
+          <Property Name="RandevuTarih" Type="DateTime" Precision="0" />
+          <Property Name="RandevuSaat" Type="String" MaxLength="5" Unicode="false" FixedLength="true" />
+          <Property Name="TrasTip" Type="Int32" />
+          <Property Name="RandevuDurum" Type="Boolean" />
+          <NavigationProperty Name="TblMusteri" Relationship="Self.FK_TblRandevu_TblMusteri" FromRole="TblRandevu" ToRole="TblMusteri" />
+          <NavigationProperty Name="TblTras" Relationship="Self.FK_TblRandevu_TblTras" FromRole="TblRandevu" ToRole="TblTras" />
+        </EntityType>
+        <EntityType Name="TblTras">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TrasTip" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Ucret" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="TblRandevu" Relationship="Self.FK_TblRandevu_TblTras" FromRole="TblTras" ToRole="TblRandevu" />
+        </EntityType>
+        <Association Name="FK_TblRandevu_TblMusteri">
+          <End Role="TblMusteri" Type="Self.TblMusteri" Multiplicity="0..1" />
+          <End Role="TblRandevu" Type="Self.TblRandevu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblMusteri">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TblRandevu">
+              <PropertyRef Name="MusteriId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblRandevu_TblTras">
+          <End Role="TblTras" Type="Self.TblTras" Multiplicity="0..1" />
+          <End Role="TblRandevu" Type="Self.TblRandevu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblTras">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TblRandevu">
+              <PropertyRef Name="TrasTip" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DbRandevuEntities3" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TblKullanici" EntityType="Self.TblKullanici" />
+          <EntitySet Name="TblMusteri" EntityType="Self.TblMusteri" />
+          <EntitySet Name="TblRandevu" EntityType="Self.TblRandevu" />
+          <EntitySet Name="TblTras" EntityType="Self.TblTras" />
+          <AssociationSet Name="FK_TblRandevu_TblMusteri" Association="Self.FK_TblRandevu_TblMusteri">
+            <End Role="TblMusteri" EntitySet="TblMusteri" />
+            <End Role="TblRandevu" EntitySet="TblRandevu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblRandevu_TblTras" Association="Self.FK_TblRandevu_TblTras">
+            <End Role="TblTras" EntitySet="TblTras" />
+            <End Role="TblRandevu" EntitySet="TblRandevu" />
+          </AssociationSet>
+          <EntitySet Name="TblKasa" EntityType="DbRandevuModel.TblKasa" />
+          <EntitySet Name="TblKasaCikis" EntityType="DbRandevuModel.TblKasaCikis" />
+          <EntitySet Name="TblNotlar" EntityType="DbRandevuModel.TblNotlar" />
+          <EntitySet Name="TblLisans" EntityType="DbRandevuModel.TblLisans" />
+          </EntityContainer>
+        <EntityType Name="TblKasa">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Tutar" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Tarih" Type="DateTime" Precision="0" />
+          <Property Name="Musteri" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TblKasaCikis">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tutar" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Tarih" Type="DateTime" Precision="0" />
+          <Property Name="Aciklama" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TblNotlar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Baslik" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Icerik" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Tarih" Type="DateTime" Precision="0" />
+          <Property Name="Durum" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="TblLisans">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LisansCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HDD" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MacAdres" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IpAdres" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DbRandevuModelStoreContainer" CdmEntityContainer="DbRandevuEntities3">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DbRandevuModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblKullanici">
+            <EntityTypeMapping TypeName="DbRandevuModel.TblKullanici">
+              <MappingFragment StoreEntitySet="TblKullanici">
+                <ScalarProperty Name="Yetki" ColumnName="Yetki" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="KullaniciAd" ColumnName="KullaniciAd" />
+                <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblMusteri">
+            <EntityTypeMapping TypeName="DbRandevuModel.TblMusteri">
+              <MappingFragment StoreEntitySet="TblMusteri">
+                <ScalarProperty Name="TcKimlikNo" ColumnName="TcKimlikNo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AdSoyad" ColumnName="AdSoyad" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblRandevu">
+            <EntityTypeMapping TypeName="DbRandevuModel.TblRandevu">
+              <MappingFragment StoreEntitySet="TblRandevu">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MusteriId" ColumnName="MusteriId" />
+                <ScalarProperty Name="RandevuTarih" ColumnName="RandevuTarih" />
+                <ScalarProperty Name="RandevuSaat" ColumnName="RandevuSaat" />
+                <ScalarProperty Name="TrasTip" ColumnName="TrasTip" />
+                <ScalarProperty Name="RandevuDurum" ColumnName="RandevuDurum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblTras">
+            <EntityTypeMapping TypeName="DbRandevuModel.TblTras">
+              <MappingFragment StoreEntitySet="TblTras">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TrasTip" ColumnName="TrasTip" />
+                <ScalarProperty Name="Ucret" ColumnName="Ucret" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblKasa">
+            <EntityTypeMapping TypeName="DbRandevuModel.TblKasa">
+              <MappingFragment StoreEntitySet="TblKasa">
+                <ScalarProperty Name="Musteri" ColumnName="Musteri" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="Tutar" ColumnName="Tutar" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblKasaCikis">
+            <EntityTypeMapping TypeName="DbRandevuModel.TblKasaCikis">
+              <MappingFragment StoreEntitySet="TblKasaCikis">
+                <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="Tutar" ColumnName="Tutar" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblNotlar">
+            <EntityTypeMapping TypeName="DbRandevuModel.TblNotlar">
+              <MappingFragment StoreEntitySet="TblNotlar">
+                <ScalarProperty Name="Durum" ColumnName="Durum" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="Icerik" ColumnName="Icerik" />
+                <ScalarProperty Name="Baslik" ColumnName="Baslik" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblLisans">
+            <EntityTypeMapping TypeName="DbRandevuModel.TblLisans">
+              <MappingFragment StoreEntitySet="TblLisans">
+                <ScalarProperty Name="IpAdres" ColumnName="IpAdres" />
+                <ScalarProperty Name="MacAdres" ColumnName="MacAdres" />
+                <ScalarProperty Name="PC" ColumnName="PC" />
+                <ScalarProperty Name="HDD" ColumnName="HDD" />
+                <ScalarProperty Name="LisansCode" ColumnName="LisansCode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
